@@ -1,6 +1,3 @@
 {
-  "test_main.py::test_q10": true,
-  "test_main.py::test_q6": true,
-  "test_main.py::test_q8": true,
-  "test_main.py::test_q9": true
+  "test_main.py": true
 }
