@@ -11,7 +11,7 @@
 
 # ## _Set up_ da análise
 
-# In[82]:
+# In[106]:
 
 
 import pandas as pd
@@ -19,7 +19,7 @@ import numpy as np
 from sklearn import preprocessing
 
 
-# In[3]:
+# In[107]:
 
 
 black_friday = pd.read_csv("black_friday.csv")
@@ -27,21 +27,10 @@ black_friday = pd.read_csv("black_friday.csv")
 
 # ## Inicie sua análise a partir daqui
 
-# In[83]:
+# In[108]:
 
 
-#Q8
 
-#coluna_purchase = black_friday['Purchase']
-#media_antes_normalizacao = coluna_purchase.mean()
-#normalized_df=(coluna_purchase-coluna_purchase.min())/(coluna_purchase.max()-coluna_purchase.min())
-#normalized_df.head()
-
-#df = pd.DataFrame(coluna_purchase)
-#min_max_scaler = preprocessing.MinMaxScaler()
-#np_scaled = min_max_scaler.fit_transform(df)
-#df_normalized = pd.DataFrame(np_scaled)
-#df_normalized.mean()
 
 #Q9
 #coluna_purchase = black_friday[['Purchase']]
@@ -50,19 +39,12 @@ black_friday = pd.read_csv("black_friday.csv")
 #re_escala = preprocessing.StandardScaler().fit(coluna_purchase)
 #res_padronizacao = re_escala.transform(coluna_purchase) 
 #coluna_purchase_padronizada = pd.DataFrame(res_padronizacao)
+#coluna_purchase_padronizada.columns = ['purchase'] #renomeando a coluna pq no padrao fica 0
+#qtd_de_um_e_menos = coluna_purchase_padronizada['purchase'].between(-1, 1, inclusive=True).value_counts().iloc[0]
+#fitra os valores entre -1 e 1 inclluindo tais valores, isso retorna tipo true e false, ai ele conta a qtd de true e false, e o iloc pega a primeira linha com qtd 
+#de valores true entre -1 e 1
 #coluna_purchase.describe()
-
-
-# In[84]:
-
-
-#coluna_purchase_padronizada
-
-
-# In[55]:
-
-
-#coluna_purchase.mean()
+#qtd_de_um_e_menos
 
 
 # ## Questão 1
@@ -202,6 +184,17 @@ def q8():
 
 def q9():
     # Retorne aqui o resultado da questão 9.
+    coluna_purchase = black_friday[['Purchase']]
+    #fonte (https://minerandodados.com.br/pre-processamento-standartization/)
+    re_escala = preprocessing.StandardScaler().fit(coluna_purchase)
+    res_padronizacao = re_escala.transform(coluna_purchase) 
+    coluna_purchase_padronizada = pd.DataFrame(res_padronizacao)
+    coluna_purchase_padronizada.columns = ['purchase'] #renomeando a coluna pq no padrao fica 0
+    qtd_de_um_e_menos = coluna_purchase_padronizada['purchase'].between(-1, 1, inclusive=True).value_counts().iloc[0]
+    #fitra os valores entre -1 e 1 inclluindo tais valores, isso retorna tipo true e false, ai ele conta a qtd de true e false, e o iloc pega a primeira linha com qtd 
+    #de valores true entre -1 e 1
+    return qtd_de_um_e_menos
+
     pass
 
 
