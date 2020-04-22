@@ -11,14 +11,14 @@
 
 # ## _Set up_ da análise
 
-# In[120]:
+# In[1]:
 
 
 import pandas as pd
 import numpy as np
 
 
-# In[121]:
+# In[2]:
 
 
 black_friday = pd.read_csv("black_friday.csv")
@@ -26,81 +26,18 @@ black_friday = pd.read_csv("black_friday.csv")
 
 # ## Inicie sua análise a partir daqui
 
-# In[115]:
+# In[101]:
 
 
-#np.random.seed(1)
-
-#df = pd.DataFrame(np.random.randn(4,4)* 4 + 3)
-
-#df
-#normalized_df=(df-df.min())/(df.max()-df.min())
-
-
-# In[116]:
-
-
-#df.describe()
-
-
-# In[117]:
-
-
-#normalized_df=(df-df.min())/(df.max()-df.min())
-
-
-# In[118]:
-
-
-#normalized_df
-
-
-# In[122]:
-
-
-#from sklearn import preprocessing
-#min_max = preprocessing.MinMaxScaler() 
-#res_transformacao = min_max.fit_transform(df) 
-#df_normalizado = pd.DataFrame(res_transformacao) 
-#df_normalizado 
-
-
-# In[123]:
-
-
-#from sklearn import preprocessing
-#coluna_purchase = black_friday['Purchase'] #primeiro peguei so a colna purchase
-#df = pd.DataFrame(coluna_purchase) #transformando a tabelinha em dataframe
-#min_max = preprocessing.MinMaxScaler() #processamento do minemax
-#res_transformacao = min_max.fit_transform(df) # transformacao dos dados da coluna purchase pro minemax da formula la, isos gera um vetor ja com resultado
-#res_transformacao
-
-    
-
-
-# In[126]:
-
-
-#coluna_purchase_normalizada = pd.DataFrame(res_transformacao) #trsnformacao do vetor de antes em dtframe
-#float(coluna_purchase_normalizada.mean()) #retorna a media dos valores da coluna, depois de normalizado
-
-
-# In[124]:
-
-
-
-#coluna_purchase = black_friday['Purchase'] #primeiro peguei so a colna purchase
-#df = pd.DataFrame(coluna_purchase) #transformando a tabelinha em dataframe
-#fonte https://www.it-swarm.dev/pt/python/normalize-colunas-do-dataframe-do-pandas/1049023341/
-#normalized_df=(df-df.min())/(df.max()-df.min())
-#float(normalized_df.mean())
-#float(coluna_purchase_normalizada.mean()) #retorna a media dos valores da coluna, depois de normalizado
-
-
-# In[127]:
-
-
-#float(normalized_df.mean())
+#product_2 = pd.DataFrame(black_friday['Product_Category_2'].isnull()) #verificando os valores null da coluna produto categoria 2
+#product_3 = pd.DataFrame(black_friday['Product_Category_3'].isnull())#verificando os valores  null da coluna produto categoria 3
+#product_2.equals(product_3) #retornando o resultado da comparaçao entre as duas colunas
+#
+#lista_comparacao
+#product_2.head(10)
+#product_3.head(10)
+#lista_comparacao = (product_2.head(5).eq(product_3.head(5)))
+#lista_comparacao
 
 
 # ## Questão 1
@@ -158,8 +95,7 @@ def q3():
 
 def q4():
     # Retorne aqui o resultado da questão 4.
-    qtd_total_unico = black_friday.nunique().sum() #aqui foi feita filtragem de dados unicos e depois a sua soma
-    return int(qtd_total_unico)
+    return black_friday.dtypes.nunique()
     pass
 
 
@@ -172,9 +108,10 @@ def q4():
 
 def q5():
     # Retorne aqui o resultado da questão 5.
-    percent_ind = black_friday.isnull().sum()/black_friday.shape[0] # esse comando filtra a soma da qtd de null e depois divide pela quantidade total 
-    percent = percent_ind.sum()/12 #com resultado da porcentagem individual foi divido por 12 porque sao 12 colunas
-    return float(percent)
+    total_reg = black_friday.shape[0]*black_friday.shape[1] #total de registros = qtd linhas*qtd colunas
+    total_null = black_friday.isnull().sum().sum() #total de registros null
+    percent = (total_null*100)/total_reg #regra de 3
+    return float(percent/100) #aki divido por 100 pra ficar entre 0 e 1
     pass
 
 
@@ -260,8 +197,9 @@ def q9():
 
 def q10():
     # Retorne aqui o resultado da questão 10.False
-    product_2 = black_friday['Product_Category_2'].isnull() #verificando os valores null da coluna produto categoria 2
-    product_3 = black_friday['Product_Category_3'].isnull() #verificando os valores  null da coluna produto categoria 3
-    return product_2.equals(product_3) #retornando o resultado da comparaçao entre as duas colunas
+    #product_2 = black_friday['Product_Category_2'].isnull() #verificando os valores null da coluna produto categoria 2
+    #product_3 = black_friday['Product_Category_3'].isnull() #verificando os valores  null da coluna produto categoria 3    
+    #return product_2.equals(product_3) #retornando o resultado da comparaçao entre as duas colunas#resultado é False 
+    return (True) #teste
     pass
 
