@@ -11,15 +11,14 @@
 
 # ## _Set up_ da análise
 
-# In[106]:
+# In[120]:
 
 
 import pandas as pd
 import numpy as np
-from sklearn import preprocessing
 
 
-# In[107]:
+# In[121]:
 
 
 black_friday = pd.read_csv("black_friday.csv")
@@ -27,24 +26,81 @@ black_friday = pd.read_csv("black_friday.csv")
 
 # ## Inicie sua análise a partir daqui
 
-# In[108]:
+# In[115]:
+
+
+#np.random.seed(1)
+
+#df = pd.DataFrame(np.random.randn(4,4)* 4 + 3)
+
+#df
+#normalized_df=(df-df.min())/(df.max()-df.min())
+
+
+# In[116]:
+
+
+#df.describe()
+
+
+# In[117]:
+
+
+#normalized_df=(df-df.min())/(df.max()-df.min())
+
+
+# In[118]:
+
+
+#normalized_df
+
+
+# In[122]:
+
+
+#from sklearn import preprocessing
+#min_max = preprocessing.MinMaxScaler() 
+#res_transformacao = min_max.fit_transform(df) 
+#df_normalizado = pd.DataFrame(res_transformacao) 
+#df_normalizado 
+
+
+# In[123]:
+
+
+#from sklearn import preprocessing
+#coluna_purchase = black_friday['Purchase'] #primeiro peguei so a colna purchase
+#df = pd.DataFrame(coluna_purchase) #transformando a tabelinha em dataframe
+#min_max = preprocessing.MinMaxScaler() #processamento do minemax
+#res_transformacao = min_max.fit_transform(df) # transformacao dos dados da coluna purchase pro minemax da formula la, isos gera um vetor ja com resultado
+#res_transformacao
+
+    
+
+
+# In[126]:
+
+
+#coluna_purchase_normalizada = pd.DataFrame(res_transformacao) #trsnformacao do vetor de antes em dtframe
+#float(coluna_purchase_normalizada.mean()) #retorna a media dos valores da coluna, depois de normalizado
+
+
+# In[124]:
 
 
 
+#coluna_purchase = black_friday['Purchase'] #primeiro peguei so a colna purchase
+#df = pd.DataFrame(coluna_purchase) #transformando a tabelinha em dataframe
+#fonte https://www.it-swarm.dev/pt/python/normalize-colunas-do-dataframe-do-pandas/1049023341/
+#normalized_df=(df-df.min())/(df.max()-df.min())
+#float(normalized_df.mean())
+#float(coluna_purchase_normalizada.mean()) #retorna a media dos valores da coluna, depois de normalizado
 
-#Q9
-#coluna_purchase = black_friday[['Purchase']]
-#coluna_purchase.describe()
-#re_escala = preprocessing.StandardScaler().fit(black_friday[['Purchase']])
-#re_escala = preprocessing.StandardScaler().fit(coluna_purchase)
-#res_padronizacao = re_escala.transform(coluna_purchase) 
-#coluna_purchase_padronizada = pd.DataFrame(res_padronizacao)
-#coluna_purchase_padronizada.columns = ['purchase'] #renomeando a coluna pq no padrao fica 0
-#qtd_de_um_e_menos = coluna_purchase_padronizada['purchase'].between(-1, 1, inclusive=True).value_counts().iloc[0]
-#fitra os valores entre -1 e 1 inclluindo tais valores, isso retorna tipo true e false, ai ele conta a qtd de true e false, e o iloc pega a primeira linha com qtd 
-#de valores true entre -1 e 1
-#coluna_purchase.describe()
-#qtd_de_um_e_menos
+
+# In[127]:
+
+
+#float(normalized_df.mean())
 
 
 # ## Questão 1
@@ -164,14 +220,11 @@ def q7():
 
 def q8():
     # Retorne aqui o resultado da questão 8.
-    coluna_purchase = black_friday['Purchase'] #primeiro peguei so a colna purchase
-    #media_antes_normalizacao = coluna_purchase.mean() #so de curiosidade
-    #essa parte peguei de um lugar pelas pesquisas na net (https://www.it-swarm.dev/pt/python/normalize-colunas-do-dataframe-do-pandas/1049023341/)
+    coluna_purchase = black_friday['Purchase'] #primeiro peguei so a coluna purchase
     df = pd.DataFrame(coluna_purchase) #transformando a tabelinha em dataframe
-    min_max = preprocessing.MinMaxScaler() #processamento do minemax
-    res_transformacao = min_max.fit_transform(df) # transformacao dos dados da coluna purchase pro minemax da formula la, isos gera um vetor ja com resultado
-    coluna_purchase_normalizada = pd.DataFrame(res_transformacao) #trsnformacao do vetor de antes em dtframe
-    return float(coluna_purchase_normalizada.mean()) #retorna a media dos valores da coluna, depois de normalizado
+    #fonte https://www.it-swarm.dev/pt/python/normalize-colunas-do-dataframe-do-pandas/1049023341/
+    normalized_df=(df-df.min())/(df.max()-df.min())
+    return float(normalized_df.mean())
     pass
 
 
@@ -185,7 +238,7 @@ def q8():
 def q9():
     # Retorne aqui o resultado da questão 9.
     coluna_purchase = black_friday[['Purchase']]
-    #fonte (https://minerandodados.com.br/pre-processamento-standartization/)
+    #fonte principal (https://minerandodados.com.br/pre-processamento-standartization/)
     re_escala = preprocessing.StandardScaler().fit(coluna_purchase)
     res_padronizacao = re_escala.transform(coluna_purchase) 
     coluna_purchase_padronizada = pd.DataFrame(res_padronizacao)
